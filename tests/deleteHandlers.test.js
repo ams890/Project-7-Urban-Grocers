@@ -4,7 +4,7 @@ const config = require('../config');
 //Test to check response status code
 test('response status code should be 200', async () => {
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/kits/7`, {
+		const response = await fetch(`${config.API_URL}/api/v1/kits/3`, {
 			method: 'DELETE',
 		});
 		expect(response.status).toBe(200);
@@ -16,10 +16,11 @@ test('response status code should be 200', async () => {
 //Test to parse the response and check that the response body contains the expected data
 test('Confirm deleted kit is not longer there', async () => {
     try {
-		const response = await fetch(`${config.API_URL}/api/v1/kits/7`, {
+		const response = await fetch(`${config.API_URL}/api/v1/kits/3`, {
 			method: 'DELETE',
 		});
-		expect(response.status).toBe(404);
+		const data = await response.json();
+		expect(data.code).toBe(404);
 	} catch (error) {
 		console.error(error);
 	}
